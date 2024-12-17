@@ -114,22 +114,22 @@ body {
 }
 
 .light-ring.inner {
-    width: 200px;
-    height: 200px;
+    width: 400px;
+    height: 400px;
     background: radial-gradient(circle, 
-        rgba(74, 144, 226, 0.3) 0%, 
-        rgba(74, 144, 226, 0.15) 50%,
-        rgba(0,0,0,0) 70%
+        rgba(74, 144, 226, 0.6) 0%,
+        rgba(74, 144, 226, 0.3) 50%,
+        rgba(0, 0, 0, 0) 70%
     );
 }
 
 .light-ring.outer {
-    width: 400px;
-    height: 400px;
+    width: 800px;
+    height: 800px;
     background: radial-gradient(circle, 
-        rgba(255, 107, 107, 0.15) 0%, 
-        rgba(255, 107, 107, 0.08) 50%,
-        rgba(0,0,0,0) 70%
+        rgba(74, 144, 226, 0.3) 0%,
+        rgba(74, 144, 226, 0.15) 50%,
+        rgba(0, 0, 0, 0) 70%
     );
 }
 
