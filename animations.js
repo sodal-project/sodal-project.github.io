@@ -192,23 +192,48 @@ class SceneManager {
                         });
                     });
 
+                    // Add extended lines from outer ring (two per icon)
+                    const extendedLines = [];
+                    ring2Positions.forEach(pos => {
+                        // Calculate base angle from center
+                        const baseAngle = Math.atan2(pos.y, pos.x);
+                        const spread = Math.PI / 12; // 15 degree spread
+                        
+                        // Create two lines at slightly different angles
+                        [-spread, spread].forEach(angleOffset => {
+                            const angle = baseAngle + angleOffset;
+                            const extendedRadius = outerRadius * 1.5; // 50% further out
+                            const endX = extendedRadius * Math.cos(angle);
+                            const endY = extendedRadius * Math.sin(angle);
+                            
+                            const line = createLine(pos.x, pos.y, endX, endY);
+                            svg.appendChild(line);
+                            extendedLines.push(line);
+                        });
+                    });
+
                     // Animate everything
                     timeline
                         .to(centerLines, {
                             opacity: 1,
-                            duration: 0.2,  // Quick animation
-                            stagger: 0.02   // Minimal stagger
+                            duration: 0.2,
+                            stagger: 0.02
                         })
                         .to(ringLines, {
                             opacity: 1,
                             duration: 0.2,
                             stagger: 0.02
-                        }, "+=0.3")  // Add a 0.3s delay before outer lines
+                        }, "+=0.3")
                         .to('.discovery-item.ring2', {
                             opacity: 1,
                             scale: 1,
                             duration: 0.5,
                             stagger: 0.05
+                        })
+                        .to(extendedLines, {
+                            opacity: 0.15,
+                            duration: 0.2,
+                            stagger: 0.01  // Faster stagger since we have twice as many lines
                         });
                 }
             }
