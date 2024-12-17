@@ -220,6 +220,16 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     pointer-events: none;
+    width: 600px;
+    height: 600px;
+    z-index: var(--z-rings);
+}
+
+/* Style for the SVG lines */
+.connection-lines line {
+    stroke: rgba(255, 255, 255, 0.3);
+    stroke-width: 1;
+    transition: opacity 0.3s ease;
 }
 
 /* Update discovery items for second ring */

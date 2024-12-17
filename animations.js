@@ -159,7 +159,15 @@ class SceneManager {
 
                 // Create SVG lines
                 const svg = document.querySelector('.connection-lines');
+                if (!svg) {
+                    console.error('Connection lines SVG not found');
+                    return;
+                }
+
                 svg.innerHTML = ''; // Clear existing lines
+                svg.setAttribute('width', '600');
+                svg.setAttribute('height', '600');
+                svg.setAttribute('viewBox', '-300 -300 600 600');  // Center the coordinate system
 
                 // Create and position lines
                 const createLine = (x1, y1, x2, y2) => {
