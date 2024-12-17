@@ -121,7 +121,7 @@ class SceneManager {
                             scale: 1,
                             duration: 1,
                             ease: "power2.out"
-                        }, "<+=0.2"); // Stagger the animations
+                        }, "0.2");
                     });
                 }
             }
