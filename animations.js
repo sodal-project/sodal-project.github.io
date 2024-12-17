@@ -1,5 +1,218 @@
 gsap.registerPlugin(ScrollTrigger);
 
+class ParticleSystem {
+    constructor() {
+        console.log('Initializing particle system');
+        this.canvas = document.getElementById('particleCanvas');
+        console.log('Canvas element:', this.canvas);
+        this.ctx = this.canvas.getContext('2d');
+        console.log('Canvas context:', this.ctx);
+        this.targetParticleCount = 20;
+        this.outerRadius = 400;
+        this.particles = [];
+        this.discoveryItems = [];
+        this.active = false;
+        this.particleAssignments = {};
+        
+        this.resize();
+        window.addEventListener('resize', () => this.resize());
+        
+        // Store discovery item positions relative to canvas
+        this.updateDiscoveryItems();
+        window.addEventListener('resize', () => this.updateDiscoveryItems());
+    }
+
+    updateDiscoveryItems() {
+        this.discoveryItems = [];
+        document.querySelectorAll('.discovery-item').forEach(item => {
+            const rect = item.getBoundingClientRect();
+            this.discoveryItems.push({
+                x: rect.left + (rect.width / 2),
+                y: rect.top + (rect.height / 2)
+            });
+        });
+    }
+
+    resize() {
+        // Match canvas size to window size
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+        this.centerX = this.canvas.width / 2;
+        this.centerY = this.canvas.height / 2;
+    }
+
+    createParticle(itemId = null) {
+        // Get all ring2 items if no specific item provided
+        const ring2Items = Array.from(document.querySelectorAll('.discovery-item.ring2'));
+        let targetItem;
+        
+        if (itemId) {
+            targetItem = document.getElementById(itemId);
+        } else {
+            // Find item with fewest particles
+            const counts = {};
+            ring2Items.forEach(item => counts[item.id] = 0);
+            this.particles.forEach(p => {
+                if (p.itemId) counts[p.itemId]++;
+            });
+            
+            targetItem = ring2Items.reduce((a, b) => 
+                (counts[a.id] || 0) <= (counts[b.id] || 0) ? a : b
+            );
+        }
+
+        const rect = targetItem.getBoundingClientRect();
+        const itemCenter = {
+            x: rect.left + rect.width / 2,
+            y: rect.top + rect.height / 2
+        };
+
+        // Calculate angle from center to item
+        const angleToItem = Math.atan2(
+            itemCenter.y - this.centerY,
+            itemCenter.x - this.centerX
+        );
+
+        // Create particle beyond the item in roughly the same direction
+        const angleVariation = Math.PI / 6; // 30 degree variation
+        const angle = angleToItem + (Math.random() - 0.5) * angleVariation;
+        const radius = this.outerRadius + 50 + Math.random() * 50; // 50-100px beyond outer ring
+        
+        // Calculate base position
+        const x = this.centerX + Math.cos(angle) * radius;
+        const y = this.centerY + Math.sin(angle) * radius;
+        
+        // Add orbital motion
+        const orbitSpeed = (Math.random() * 0.2 + 0.1) * (Math.random() < 0.5 ? 1 : -1); // Random speed and direction
+        const orbitRadius = 20 + Math.random() * 20; // 20-40px orbit radius
+        
+        return {
+            x,
+            y,
+            baseX: x,
+            baseY: y,
+            orbitAngle: Math.random() * Math.PI * 2, // Random starting position in orbit
+            orbitSpeed, // Radians per frame
+            orbitRadius,
+            life: 1,
+            duration: 30 + Math.random() * 5,
+            age: 0,
+            nearestItem: null,
+            connectionOpacity: 0,
+            itemId: targetItem.id
+        };
+    }
+
+    update() {
+        if (!this.active) return;
+
+        // Clear canvas
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.updateDiscoveryItems();
+
+        // Count current particles per item
+        const particleCounts = {};
+        this.particles.forEach(p => {
+            if (p.itemId) {
+                particleCounts[p.itemId] = (particleCounts[p.itemId] || 0) + 1;
+            }
+        });
+
+        // Add particles where needed
+        document.querySelectorAll('.discovery-item.ring2').forEach(item => {
+            const count = particleCounts[item.id] || 0;
+            for (let i = count; i < 2; i++) {
+                this.particles.push(this.createParticle(item.id));
+            }
+        });
+
+        // Update and draw particles
+        this.particles = this.particles.filter(particle => {
+            // Update orbital position
+            particle.orbitAngle += particle.orbitSpeed / 60; // Assuming 60fps
+            particle.x = particle.baseX + Math.cos(particle.orbitAngle) * particle.orbitRadius;
+            particle.y = particle.baseY + Math.sin(particle.orbitAngle) * particle.orbitRadius;
+            
+            // Update age and life
+            particle.age += 1/60;
+            
+            // Fade in and out
+            if (particle.age < 1) { // Longer fade in (1 second)
+                particle.life = particle.age;
+            } else if (particle.age > particle.duration - 1) { // Longer fade out (1 second)
+                particle.life = (particle.duration - particle.age);
+            }
+            
+            // Find nearest discovery item
+            let nearestDist = Infinity;
+            let nearestItem = null;
+            
+            this.discoveryItems.forEach(item => {
+                const dx = item.x - particle.x;
+                const dy = item.y - particle.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                
+                if (dist < nearestDist) {
+                    nearestDist = dist;
+                    nearestItem = item;
+                }
+            });
+            
+            particle.nearestItem = nearestItem;
+            particle.connectionOpacity = Math.max(0, Math.min(1, (400 - nearestDist) / 400)); // Increased connection range
+
+            // Draw particle
+            this.ctx.beginPath();
+            this.ctx.arc(particle.x, particle.y, 2, 0, Math.PI * 2);
+            this.ctx.fillStyle = `rgba(255, 255, 255, ${particle.life})`;
+            this.ctx.fill();
+
+            // Draw connection line
+            if (particle.nearestItem && particle.connectionOpacity > 0) {
+                this.ctx.beginPath();
+                this.ctx.moveTo(particle.x, particle.y);
+                this.ctx.lineTo(particle.nearestItem.x, particle.nearestItem.y);
+                this.ctx.strokeStyle = `rgba(255, 255, 255, ${particle.connectionOpacity * 0.3 * particle.life})`;
+                this.ctx.lineWidth = 1;
+                this.ctx.stroke();
+            }
+
+            const keepParticle = particle.age < particle.duration;
+            
+            // If this particle is about to be removed, create a new one for the same item
+            if (!keepParticle) {
+                this.particles.push(this.createParticle(particle.itemId));
+            }
+
+            return keepParticle;
+        });
+
+        requestAnimationFrame(() => this.update());
+    }
+
+    start() {
+        if (this.active) return; // Prevent multiple initializations
+        
+        this.active = true;
+        this.particles = []; // Clear any existing particles
+        
+        // Initialize with two particles per ring2 item
+        document.querySelectorAll('.discovery-item.ring2').forEach(item => {
+            for (let i = 0; i < 2; i++) {
+                this.particles.push(this.createParticle(item.id));
+            }
+        });
+        gsap.to('.particle-field', { opacity: 1, duration: 0.5 });
+        this.update();
+    }
+
+    stop() {
+        this.active = false;
+        this.particles = []; // Clear particles
+        gsap.to('.particle-field', { opacity: 0, duration: 0.5 });
+    }
+}
+
 class SceneManager {
     constructor() {
         // Scene configuration
@@ -33,6 +246,7 @@ class SceneManager {
         ];
 
         this.init();
+        this.particleSystem = new ParticleSystem();
     }
 
     init() {
@@ -87,6 +301,15 @@ class SceneManager {
                             const overlayDelta = prevOverlay - scene.darkOverlay;
                             const currentOverlay = prevOverlay - (progress * overlayDelta);
                             gsap.set(".dark-overlay", { opacity: currentOverlay });
+                        }
+
+                        // Start particle system in scene4
+                        if (scene.id === 'scene4') {
+                            if (self.progress > 0.3) {
+                                this.particleSystem.start();
+                            } else {
+                                this.particleSystem.stop();
+                            }
                         }
                     }
                 })
@@ -175,13 +398,14 @@ class SceneManager {
                         return line;
                     };
 
-                    // Create and add all lines
+                    // Create and add center-to-ring1 lines
                     const centerLines = ring1Positions.map(pos => {
                         const line = createLine(0, 0, pos.x, pos.y);
                         svg.appendChild(line);
                         return line;
                     });
 
+                    // Create and add ring1-to-ring2 lines
                     const ringLines = [];
                     ring1Positions.forEach((pos1, i) => {
                         const startIndex = i * 2;
@@ -203,26 +427,6 @@ class SceneManager {
                         });
                     });
 
-                    // Add extended lines from outer ring (two per icon)
-                    const extendedLines = [];
-                    ring2Positions.forEach(pos => {
-                        // Calculate base angle from center
-                        const baseAngle = Math.atan2(pos.y, pos.x);
-                        const spread = Math.PI / 12; // 15 degree spread
-                        
-                        // Create two lines at slightly different angles
-                        [-spread, spread].forEach(angleOffset => {
-                            const angle = baseAngle + angleOffset;
-                            const extendedRadius = outerRadius * 1.5; // 50% further out
-                            const endX = extendedRadius * Math.cos(angle);
-                            const endY = extendedRadius * Math.sin(angle);
-                            
-                            const line = createLine(pos.x, pos.y, endX, endY);
-                            svg.appendChild(line);
-                            extendedLines.push(line);
-                        });
-                    });
-
                     // Animate everything
                     timeline
                         .to(centerLines, {
@@ -240,11 +444,6 @@ class SceneManager {
                             scale: 1,
                             duration: 0.5,
                             stagger: 0.05
-                        })
-                        .to(extendedLines, {
-                            opacity: 0.15,
-                            duration: 0.2,
-                            stagger: 0.01  // Faster stagger since we have twice as many lines
                         });
                 }
 
