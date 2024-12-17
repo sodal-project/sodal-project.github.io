@@ -245,6 +245,23 @@ class SceneManager {
                             stagger: 0.01  // Faster stagger since we have twice as many lines
                         });
                 }
+
+                if (scene.id === 'scene4') {
+                    timeline
+                        // Grow inner ring and protagonist to a much larger size
+                        .to(['.light-ring.inner', '.protagonist'], {
+                            scale: 4,  // Increased from 2 to 4 for larger final size
+                            duration: 1,
+                            ease: "power2.out"
+                        })
+                        // Fade in and scale up CTA button from center
+                        .from('.cta-button', {
+                            opacity: 0,
+                            scale: 0,
+                            duration: 0.5,
+                            ease: "back.out(1.7)"
+                        }, "-=0.3");
+                }
             }
         });
     }
