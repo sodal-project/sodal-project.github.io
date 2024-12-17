@@ -85,14 +85,21 @@ body {
     z-index: var(--z-protagonist);
     pointer-events: none;
     will-change: transform;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .protagonist {
-    width: 32px;
-    height: 32px;
+    width: 192px;
+    height: 192px;
     background: var(--color-light);
     border-radius: 50%;
     box-shadow: 0 0 30px rgba(255,255,255,0.4);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    transform: translate3d(0, 0, 0);
 }
 
 /* Light rings */
@@ -107,7 +114,7 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0);
+    transform: translate(-50%, -50%);
     border-radius: 50%;
     will-change: transform, opacity;
 }
@@ -153,7 +160,7 @@ body {
     font-weight: 600;
     border-radius: 30px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background 0.3s ease;
     font-family: 'Inter', sans-serif;
     letter-spacing: 0.5px;
     pointer-events: auto;
@@ -167,7 +174,6 @@ body {
 .cta-button:hover {
     background: white;
     border-color: var(--color-primary);
-    transform: translate(-50%, -50%) scale(1.05);
 }
 
 /* Add text container styles */

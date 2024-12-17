@@ -38,11 +38,13 @@ class SceneManager {
     init() {
         // Initial setup
         gsap.set('body', { backgroundColor: '#000000' });
-        gsap.set('.protagonist', { opacity: 1 });
+        gsap.set('.protagonist', { 
+            opacity: 1,
+            scale: 0.166667  // 1/6 to match our larger initial size
+        });
         gsap.set('.light-ring', { scale: 0, opacity: 0 });
         gsap.set('.scene-text', { opacity: 0 });
         
-        // Remove initial protagonist animation since it starts visible
         this.initScenes();
     }
 
@@ -248,18 +250,22 @@ class SceneManager {
 
                 if (scene.id === 'scene4') {
                     timeline
-                        // Grow inner ring and protagonist while fading in CTA simultaneously
-                        .to(['.light-ring.inner', '.protagonist'], {
-                            scale: 5,
+                        .to('.light-ring.inner', {
+                            scale: 6,  // Light ring should expand
                             duration: 1,
                             ease: "power2.out"
                         })
+                        .to('.protagonist', {
+                            scale: 1,  // Protagonist maintains its scale
+                            duration: 1,
+                            ease: "power2.out"
+                        }, "<")  // The "<" makes this animation start at the same time
                         .from('.cta-button', {
                             opacity: 0,
                             scale: 0,
-                            duration: 1,  // Match the duration of the protagonist
-                            ease: "power2.out"  // Match the easing
-                        }, "<");  // "<" means start at the same time as previous animation
+                            duration: 1,
+                            ease: "power2.out"
+                        }, "<");
                 }
             }
         });
