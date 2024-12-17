@@ -265,7 +265,12 @@ class SceneManager {
                             scale: 0,
                             duration: 1,
                             ease: "power2.out"
-                        }, "<");
+                        }, "<")
+                        .to('.menu-button', {
+                            opacity: 1,
+                            duration: 0.5,
+                            ease: "power2.out"
+                        }, "-=0.5");
                 }
             }
         });
@@ -275,4 +280,18 @@ class SceneManager {
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     new SceneManager();
+    
+    const menuButton = document.querySelector('.menu-button');
+    const menuPanel = document.querySelector('.menu-panel');
+    const menuClose = document.querySelector('.menu-close');
+    
+    if (menuButton && menuPanel && menuClose) {
+        menuButton.addEventListener('click', () => {
+            menuPanel.classList.toggle('active');
+        });
+        
+        menuClose.addEventListener('click', () => {
+            menuPanel.classList.remove('active');
+        });
+    }
 });
