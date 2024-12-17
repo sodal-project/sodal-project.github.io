@@ -248,19 +248,18 @@ class SceneManager {
 
                 if (scene.id === 'scene4') {
                     timeline
-                        // Grow inner ring and protagonist to a much larger size
+                        // Grow inner ring and protagonist while fading in CTA simultaneously
                         .to(['.light-ring.inner', '.protagonist'], {
-                            scale: 9,  // Increased from 6 to 7.2 (20% larger)
+                            scale: 5,
                             duration: 1,
                             ease: "power2.out"
                         })
-                        // Fade in and scale up CTA button from center
                         .from('.cta-button', {
                             opacity: 0,
                             scale: 0,
-                            duration: 0.5,
-                            ease: "back.out(1.7)"
-                        }, "-=0.3");
+                            duration: 1,  // Match the duration of the protagonist
+                            ease: "power2.out"  // Match the easing
+                        }, "<");  // "<" means start at the same time as previous animation
                 }
             }
         });
