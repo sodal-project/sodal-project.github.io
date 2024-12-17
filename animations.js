@@ -58,7 +58,16 @@ class SceneManager {
 
     animateText(sceneId, progress) {
         const textId = sceneId.replace('scene', 'text');
-        const opacity = progress < 0.5 ? progress * 2 : 2 - (progress * 2);
+        let opacity;
+        
+        // Special handling for scene4 text
+        if (sceneId === 'scene4') {
+            opacity = progress * 2; // Just fade in and stay visible
+        } else {
+            // Original fade in/out behavior for other scenes
+            opacity = progress < 0.5 ? progress * 2 : 2 - (progress * 2);
+        }
+        
         gsap.set(`#${textId}`, { opacity });
     }
 
