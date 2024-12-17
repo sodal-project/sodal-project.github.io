@@ -250,7 +250,7 @@ class SceneManager {
                     timeline
                         // Grow inner ring and protagonist to a much larger size
                         .to(['.light-ring.inner', '.protagonist'], {
-                            scale: 4,  // Increased from 2 to 4 for larger final size
+                            scale: 9,  // Increased from 6 to 7.2 (20% larger)
                             duration: 1,
                             ease: "power2.out"
                         })
