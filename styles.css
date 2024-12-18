@@ -417,3 +417,14 @@ html {
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
 }
+
+.scroll-indicator {
+    position: fixed;
+    bottom: 15vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    color: white;
+    z-index: var(--z-content);
+}

@@ -264,10 +264,16 @@ class SceneManager {
         gsap.set('body', { backgroundColor: '#000000' });
         gsap.set('.protagonist', { 
             opacity: 1,
-            scale: 0.166667  // 1/6 to match our larger initial size
+            scale: 0.166667
         });
         gsap.set('.light-ring', { scale: 0, opacity: 0 });
         gsap.set('.scene-text', { opacity: 0 });
+        
+        // Set initial state of scroll indicator
+        gsap.set('.scroll-indicator', { 
+            opacity: 0.7,
+            immediateRender: true 
+        });
         
         this.initScenes();
     }
@@ -295,6 +301,11 @@ class SceneManager {
         }
         
         gsap.set(`#${textId}`, { opacity });
+
+        // Handle scroll indicator fade out in scene1
+        if (sceneId === 'scene1') {
+            gsap.set('.scroll-indicator', { opacity: opacity * 0.7 });
+        }
     }
 
     initScenes() {
@@ -303,7 +314,7 @@ class SceneManager {
                 scrollTrigger: this.createScrollTrigger(scene.id, {
                     onUpdate: (self) => {
                         this.animateText(scene.id, self.progress);
-                        
+
                         // Smooth dark overlay transition
                         if (scene.darkOverlay !== null) {
                             const progress = self.progress;
