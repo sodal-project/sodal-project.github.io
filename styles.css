@@ -449,3 +449,13 @@ body.loading::before {
     visibility: visible;
     z-index: 9999;
 }
+
+/* Near the top, with other base styles */
+@supports (-webkit-touch-callout: none) {
+    /* iOS-specific fixes */
+    html, body {
+        position: relative;  /* Less aggressive than fixed */
+        overscroll-behavior-y: none;
+        -webkit-overflow-scrolling: touch;
+    }
+}
