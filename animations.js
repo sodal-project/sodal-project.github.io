@@ -46,18 +46,8 @@ class ParticleSystem {
     }
 
     resize() {
-        // Set canvas size with device pixel ratio for sharper rendering
-        const dpr = window.devicePixelRatio || 1;
-        this.canvas.width = window.innerWidth * dpr;
-        this.canvas.height = window.innerHeight * dpr;
-        
-        // Scale canvas CSS size
-        this.canvas.style.width = `${window.innerWidth}px`;
-        this.canvas.style.height = `${window.innerHeight}px`;
-        
-        // Scale context to match
-        this.ctx.scale(dpr, dpr);
-        
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
         this.centerX = window.innerWidth / 2;
         this.centerY = window.innerHeight / 2;
     }
