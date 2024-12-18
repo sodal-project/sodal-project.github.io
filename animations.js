@@ -31,17 +31,14 @@ class ParticleSystem {
     updateDiscoveryItems() {
         this.discoveryItems = [];
         document.querySelectorAll('.discovery-item').forEach(item => {
-            const rect = item.getBoundingClientRect();
-            const scrollX = window.pageXOffset || document.documentElement.scrollLeft;
-            const scrollY = window.pageYOffset || document.documentElement.scrollTop;
-            
             // Get the actual icon element within the discovery item
             const icon = item.querySelector('.icon') || item;
-            const iconRect = icon.getBoundingClientRect();
+            const rect = icon.getBoundingClientRect();
             
             this.discoveryItems.push({
-                x: iconRect.left + (iconRect.width / 2) + 5,
-                y: iconRect.top + (iconRect.height / 2)
+                x: rect.left + (rect.width / 2) + 6,  // Add 6px offset
+                y: rect.top + (rect.height / 2),  // Add 6px offset
+                element: item
             });
         });
     }

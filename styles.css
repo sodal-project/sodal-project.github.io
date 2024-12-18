@@ -412,3 +412,8 @@ body {
     top: 0;
     left: 0;
 }
+
+html {
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
