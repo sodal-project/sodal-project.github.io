@@ -31,24 +31,35 @@ class ParticleSystem {
     updateDiscoveryItems() {
         this.discoveryItems = [];
         document.querySelectorAll('.discovery-item').forEach(item => {
-            // Get the actual icon element within the discovery item
-            const icon = item.querySelector('.icon') || item;
-            const rect = icon.getBoundingClientRect();
+            const rect = item.getBoundingClientRect();
+            
+            // Convert viewport coordinates to canvas coordinates
+            const x = rect.left + (rect.width / 2);
+            const y = rect.top + (rect.height / 2);
             
             this.discoveryItems.push({
-                x: rect.left + (rect.width / 2) + 6,  // Add 6px offset
-                y: rect.top + (rect.height / 2),  // Add 6px offset
+                x: x * (this.canvas.width / window.innerWidth),
+                y: y * (this.canvas.height / window.innerHeight),
                 element: item
             });
         });
     }
 
     resize() {
-        // Match canvas size to window size
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
-        this.centerX = this.canvas.width / 2;
-        this.centerY = this.canvas.height / 2;
+        // Set canvas size with device pixel ratio for sharper rendering
+        const dpr = window.devicePixelRatio || 1;
+        this.canvas.width = window.innerWidth * dpr;
+        this.canvas.height = window.innerHeight * dpr;
+        
+        // Scale canvas CSS size
+        this.canvas.style.width = `${window.innerWidth}px`;
+        this.canvas.style.height = `${window.innerHeight}px`;
+        
+        // Scale context to match
+        this.ctx.scale(dpr, dpr);
+        
+        this.centerX = window.innerWidth / 2;
+        this.centerY = window.innerHeight / 2;
     }
 
     createParticle(itemId = null) {

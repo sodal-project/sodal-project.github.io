@@ -28,6 +28,8 @@ body {
     color: var(--color-light);
     overflow-x: hidden;
     line-height: 1.4;
+    overscroll-behavior-y: none;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* Layout containers */
@@ -400,22 +402,28 @@ body {
     pointer-events: none;
     opacity: 0;
     mix-blend-mode: screen;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    will-change: transform;
 }
 
 #particleCanvas {
-    width: 100%;
-    height: 100%;
-    display: block;
     position: absolute;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    will-change: transform;
 }
 
 html {
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: none;
 }
 
 .scroll-indicator {
