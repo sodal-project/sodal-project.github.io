@@ -454,6 +454,5 @@ body.loading::before {
     /* iOS-specific fixes */
     html, body {
       overscroll-behavior-y: none;
-      -webkit-overflow-scrolling: touch;
   }
 }
