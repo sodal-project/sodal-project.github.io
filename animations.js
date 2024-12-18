@@ -360,7 +360,7 @@ class SceneManager {
                     const innerRadius = 120;
                     const outerRadius = 240;
                     
-                    // First ring positions (5 items)
+                    // First ring positions (5 items, starting from top)
                     const ring1Positions = Array.from({length: 5}, (_, i) => {
                         const angle = (i * 2 * Math.PI / 5) - Math.PI/2;
                         return {
@@ -370,8 +370,9 @@ class SceneManager {
                     });
 
                     // Second ring positions (10 items)
+                    // Add an offset of 1/10th of the circle to align with connections
                     const ring2Positions = Array.from({length: 10}, (_, i) => {
-                        const angle = (i * 2 * Math.PI / 10) - Math.PI/2;
+                        const angle = (i * 2 * Math.PI / 10) - Math.PI/2 - (Math.PI / 10);
                         return {
                             x: outerRadius * Math.cos(angle),
                             y: outerRadius * Math.sin(angle)
