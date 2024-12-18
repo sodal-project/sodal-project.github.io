@@ -61,7 +61,7 @@ body {
 /* Text styles */
 .scene-text {
     position: absolute;
-    top: 12%;
+    top: 10%;
     left: 50%;
     transform: translateX(-50%);
     font-size: 1.8rem;
@@ -73,6 +73,7 @@ body {
     -webkit-font-smoothing: antialiased;
     pointer-events: none;
     text-align: center;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.75);
 }
 
 .scene-text.light {
@@ -450,9 +451,9 @@ body.loading::before {
     z-index: 9999;
 }
 
-@supports (-webkit-touch-callout: none) {
-  /* iOS-specific fixes */
-  .particle-field {
-      display: none;
-  }
+@media (max-width: 768px), (-webkit-touch-callout: none) {
+    /* Mobile and iOS-specific fixes */
+    .particle-field {
+        display: none;
+    }
 }
