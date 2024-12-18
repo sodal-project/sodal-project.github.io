@@ -20,15 +20,28 @@ class ParticleSystem {
         // Store discovery item positions relative to canvas
         this.updateDiscoveryItems();
         window.addEventListener('resize', () => this.updateDiscoveryItems());
+        
+        // Add fixed positioning to canvas
+        this.canvas.style.position = 'fixed';
+        this.canvas.style.top = '0';
+        this.canvas.style.left = '0';
+        this.canvas.style.pointerEvents = 'none'; // Ensure it doesn't block interactions
     }
 
     updateDiscoveryItems() {
         this.discoveryItems = [];
         document.querySelectorAll('.discovery-item').forEach(item => {
             const rect = item.getBoundingClientRect();
+            const scrollX = window.pageXOffset || document.documentElement.scrollLeft;
+            const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Get the actual icon element within the discovery item
+            const icon = item.querySelector('.icon') || item;
+            const iconRect = icon.getBoundingClientRect();
+            
             this.discoveryItems.push({
-                x: rect.left + (rect.width / 2),
-                y: rect.top + (rect.height / 2)
+                x: iconRect.left + (iconRect.width / 2) + 5,
+                y: iconRect.top + (iconRect.height / 2)
             });
         });
     }

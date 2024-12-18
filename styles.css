@@ -92,8 +92,8 @@ body {
 }
 
 .protagonist {
-    width: 192px;
-    height: 192px;
+    width: 160px;
+    height: 160px;
     background: var(--color-light);
     border-radius: 50%;
     box-shadow: 0 0 30px rgba(255,255,255,0.4);
@@ -154,8 +154,7 @@ body {
 
 /* CTA Button */
 .cta-button {
-    background: white;
-    border: 2px solid rgba(74, 144, 226, 0.7);
+    background: transparent;
     color: var(--color-primary);
     padding: 15px 30px;
     font-size: 1.2rem;
@@ -171,11 +170,11 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    border: none;
 }
 
 .cta-button:hover {
-    background: white;
-    border-color: var(--color-primary);
+    background: rgba(74, 144, 226, 0.1);
 }
 
 /* Add text container styles */
