@@ -260,6 +260,9 @@ class SceneManager {
     }
 
     init() {
+        // Remove loading class when everything is ready
+        document.body.classList.remove('loading');
+
         // Initial setup
         gsap.set('body', { backgroundColor: '#000000' });
         gsap.set('.protagonist', { 
