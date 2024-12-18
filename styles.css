@@ -452,8 +452,7 @@ body.loading::before {
 
 @supports (-webkit-touch-callout: none) {
   /* iOS-specific fixes */
-  .particle-field,
-  .connection-lines {
+  .particle-field {
       display: none;
   }
 }
