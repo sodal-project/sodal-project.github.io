@@ -403,7 +403,6 @@ body {
     mix-blend-mode: screen;
     width: 100vw;
     height: 100vh;
-    -webkit-transform: translate3d(0,0,0);
 }
 
 #particleCanvas {
@@ -412,7 +411,6 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    -webkit-transform: translate3d(0,0,0);
 }
 
 html {
@@ -454,21 +452,8 @@ body.loading::before {
 
 @supports (-webkit-touch-callout: none) {
     /* iOS-specific fixes */
-    .particle-field {
-        position: fixed;
-        inset: 0;
-        z-index: calc(var(--z-protagonist) - 1);
-        pointer-events: none;
-        opacity: 0;
-        mix-blend-mode: screen;
-        width: 100vw;  /* Use viewport units */
-        height: 100vh;
-        -webkit-transform: translate3d(0,0,0); /* Force GPU acceleration */
-    }
-
-    #particleCanvas {
-        width: 100vw;
-        height: 100vh;
-        -webkit-transform: translate3d(0,0,0);
-    }
+    html, body {
+      overscroll-behavior-y: none;
+      -webkit-overflow-scrolling: touch;
+  }
 }
