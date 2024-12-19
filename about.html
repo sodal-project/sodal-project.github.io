@@ -69,19 +69,20 @@
             margin-bottom: 35px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding-bottom: 18px;
+            text-align: center;
         }
 
         .date {
             color: var(--color-primary);
-            font-size: 0.85em;
-            margin-bottom: 18px;
+            font-size: 0.75em;
+            margin-bottom: 16px;
             font-family: var(--font-primary);
             letter-spacing: 0.02em;
         }
 
         h1 {
             font-family: var(--font-primary);
-            font-size: 1.8em;
+            font-size: 1.6em;
             margin: 0;
             font-weight: 600;
             line-height: var(--line-height-heading);
@@ -260,6 +261,18 @@
         .bullet-list.capabilities li:nth-child(4)::before {
             mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM17.99 9l-1.41-1.42-6.59 6.59-2.58-2.57-1.42 1.41 4 3.99z'/%3E%3C/svg%3E");
         }
+
+        /* Style for the contact section */
+        .contact-section {
+            text-align: center;
+            margin-top: var(--spacing-vertical);
+            padding-top: var(--spacing-vertical);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-section p {
+            margin-bottom: 0;
+        }
     </style>
 </head>
 <body>
@@ -306,7 +319,9 @@
 
             <p style="margin-top: 40px;">---</p>
 
-            <p>To learn more, reach out to <a href="mailto:hi@sodal.com">hi@sodal.com</a></p>
+            <div class="contact-section">
+                <p>Contact <a href="mailto:hi@sodal.com">hi@sodal.com</a> to learn more.</p>
+            </div>
         </div>
     </article>
 </body>
