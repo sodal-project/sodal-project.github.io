@@ -335,7 +335,7 @@ body {
 
 /* Menu divider */
 .menu-divider {
-    margin: 20px 0;
+    margin: 40px 0;
     border: none;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -447,4 +447,70 @@ body.loading::before {
     .particle-field {
         display: none;
     }
+}
+
+/* Common styles for all menu sections */
+.menu-links,
+.social-links,
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Common link styles */
+.menu-link,
+.social-link,
+.footer-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--color-light);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+    font-size: 1em;
+}
+
+.menu-link:hover,
+.social-link:hover,
+.footer-link:hover {
+    opacity: 1;
+    color: var(--color-primary);
+}
+
+/* Common icon styles */
+.menu-link svg,
+.social-link svg,
+.menu-close svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}
+
+/* Menu close button */
+.menu-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: var(--color-light);
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.menu-close:hover {
+    opacity: 1;
+}
+
+/* Menu divider */
+.menu-divider {
+    margin: 40px 0;
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
