@@ -298,10 +298,9 @@ class SceneManager {
         
         // Special handling for scene4 text
         if (sceneId === 'scene4') {
-            opacity = progress * 2; // Just fade in and stay visible
+            opacity = progress * 4; // Just fade in and stay visible
         } else {
-            // Original fade in/out behavior for other scenes
-            opacity = progress < 0.5 ? progress * 2 : 2 - (progress * 2);
+            opacity = progress < 0.5 ? progress * 4 : 4 - (progress * 4);
         }
         
         gsap.set(`#${textId}`, { opacity });
