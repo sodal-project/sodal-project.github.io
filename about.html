@@ -10,26 +10,22 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
+        /* Root Variables */
         :root {
             --color-dark: #000000;
             --color-light: #ffffff;
             --color-primary: #4A90E2;
-            --gradient-overlay: linear-gradient(
-                45deg,
-                rgba(41, 121, 255, 0.03),
-                rgba(74, 144, 226, 0.02)
-            );
             --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             --line-height-body: 1.5;
             --line-height-heading: 1.25;
             --spacing-vertical: 2rem;
         }
 
+        /* Base Styles */
         body {
             background: var(--color-dark);
             color: var(--color-light);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
+            font-family: var(--font-primary);
             margin: 0;
             padding: 0;
             min-height: 100vh;
@@ -38,55 +34,18 @@
             align-items: center;
         }
 
+        /* Layout Components */
         .memo {
             max-width: 620px;
             width: 90%;
-            margin: min(40px, 5vw);
-            padding: min(60px, 7vw);
+            margin: min(30px, 4vw) min(40px, 5vw);
+            padding: min(40px, 5vw) min(60px, 7vw);
             position: relative;
             background: rgba(74, 144, 226, 0.02);
             border: 1px solid rgba(74, 144, 226, 0.1);
             border-radius: 8px;
             z-index: 2;
             line-height: var(--line-height-body);
-        }
-
-        .memo::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(
-                45deg,
-                rgba(41, 121, 255, 0.03),
-                rgba(74, 144, 226, 0.02)
-            );
-            pointer-events: none;
-            opacity: 0.5;
-            border-radius: 8px;
-        }
-
-        .header {
-            margin-bottom: 35px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 18px;
-            text-align: center;
-        }
-
-        .date {
-            color: var(--color-primary);
-            font-size: 0.75em;
-            margin-bottom: 16px;
-            font-family: var(--font-primary);
-            letter-spacing: 0.02em;
-        }
-
-        h1 {
-            font-family: var(--font-primary);
-            font-size: 1.6em;
-            margin: 0;
-            font-weight: 600;
-            line-height: var(--line-height-heading);
-            letter-spacing: -0.02em;
         }
 
         .content {
@@ -97,63 +56,19 @@
             color: rgba(255, 255, 255, 0.92);
             font-feature-settings: "kern" 1, "liga" 1;
             letter-spacing: -0.011em;
+            text-align: center;
         }
 
-        p {
-            margin-bottom: var(--spacing-vertical);
-        }
-
-        .signature {
-            margin-top: 40px;
-            color: var(--color-primary);
-        }
-
-        /* Fixed light accent positioning and enhanced visibility */
-        .light-accent {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(
-                circle at top right,
-                rgba(74, 144, 226, 0.3) 0%,
-                rgba(41, 121, 255, 0.15) 30%,
-                rgba(0, 0, 0, 0) 70%
-            );
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        /* Add this new radial gradient background */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background: radial-gradient(
-                circle at center,
-                rgba(41, 121, 255, 0.35) 0%,
-                rgba(41, 121, 255, 0.15) 50%,
-                rgba(0, 0, 0, 0) 100%
-            );
-            pointer-events: none;
-        }
-
+        /* Navigation */
         .home-button {
-            position: absolute;
-            top: min(40px, 5vw);
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            height: 40px;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: min(16px, 2vh);
+            padding: 4px;
             background: transparent;
             border: none;
             cursor: pointer;
-            padding: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
             color: var(--color-light);
             opacity: 0.7;
             transition: opacity 0.2s ease;
@@ -164,38 +79,46 @@
         }
 
         .home-button svg {
-            width: 24px;
-            height: 24px;
+            width: 20px;
+            height: 20px;
+            display: block;
+            transform: translateY(1px);
         }
 
-        /* Update left margin for bullet points to be responsive but slightly smaller */
-        p[style*="margin-left"] {
-            margin-left: min(18px, 3.5vw) !important;
+        /* Typography */
+        .header {
+            margin-bottom: 32px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 16px;
+            text-align: center;
         }
 
-        a {
-            color: var(--color-light);
-            text-decoration: none;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-            transition: border-color 0.2s ease;
-        }
-
-        a:hover {
-            border-color: rgba(255, 255, 255, 0.8);
-        }
-
-        /* Remove the previous link styling from signature */
-        .signature a {
-            opacity: 1;
-        }
-
-        /* Replace bold/italic with more subtle emphasis */
-        .key-concept {
+        .date {
             color: var(--color-primary);
-            font-weight: 500;
+            font-size: 0.75em;
+            margin-bottom: 16px;
+            letter-spacing: 0.02em;
         }
 
-        /* Enhanced list styling */
+        h1 {
+            font-size: 1.6em;
+            margin: 0;
+            font-weight: 600;
+            line-height: var(--line-height-heading);
+            letter-spacing: -0.02em;
+        }
+
+        p {
+            margin-bottom: var(--spacing-vertical);
+        }
+
+        /* Content Alignment */
+        .content p, 
+        .content ul {
+            text-align: left;
+        }
+
+        /* Lists */
         .bullet-list {
             margin: var(--spacing-vertical) 0;
             padding-left: 0;
@@ -205,7 +128,7 @@
         .bullet-list li {
             position: relative;
             margin-bottom: 1.2em;
-            padding-left: 2.2em; /* Space for icon */
+            padding-left: 2.2em;
         }
 
         .bullet-list li::before {
@@ -225,44 +148,52 @@
             opacity: 0.9;
         }
 
-        /* First list - Vision icons */
+        /* List Icons */
         .bullet-list.vision li:nth-child(1)::before {
-            /* Individual: simple person silhouette */
             mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0-6c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm0 7c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4zm6 5H6v-.99c.2-.72 3.3-2.01 6-2.01s5.8 1.29 6 2v1z'/%3E%3C/svg%3E");
         }
         
         .bullet-list.vision li:nth-child(2)::before {
-            /* Builder: tools/construction */
             mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M22.61 18.99l-9.08-9.08c.93-2.34.45-5.1-1.44-7C9.79.61 6.21.4 3.66 2.26L7.5 6.11 6.08 7.52 2.25 3.69C.39 6.23.6 9.82 2.9 12.11c1.86 1.86 4.57 2.35 6.89 1.48l9.11 9.11c.39.39 1.02.39 1.41 0l2.3-2.3c.4-.38.4-1.01 0-1.41zm-3 1.6l-9.46-9.46c-.61.45-1.29.72-2 .82-1.36.2-2.79-.21-3.83-1.25C3.37 9.76 2.93 8.5 3 7.26l3.09 3.09 4.24-4.24-3.09-3.09c1.24-.07 2.49.37 3.44 1.31 1.08 1.08 1.49 2.57 1.24 3.96-.12.71-.42 1.37-.88 1.96l9.45 9.45-.88.89z'/%3E%3C/svg%3E");
         }
         
         .bullet-list.vision li:nth-child(3)::before {
-            /* Market: trending up graph */
             mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z'/%3E%3C/svg%3E");
         }
-        
+
         .bullet-list.vision li:nth-child(4)::before {
             mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z'/%3E%3C/svg%3E");
         }
 
-        /* Second list - Capabilities icons */
         .bullet-list.capabilities li:nth-child(1)::before {
             mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z'/%3E%3C/svg%3E");
         }
-        
+
         .bullet-list.capabilities li:nth-child(2)::before {
             mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-4h2v2h-2zm1.61-9.96c-2.06-.3-3.88.97-4.43 2.79-.18.58.26 1.17.87 1.17h.2c.41 0 .74-.29.88-.67.32-.89 1.27-1.5 2.3-1.28.95.2 1.65 1.13 1.57 2.1-.1 1.34-1.62 1.63-2.45 2.88 0 .01-.01.01-.01.02-.01.02-.02.03-.03.05-.09.15-.18.32-.25.5-.01.03-.03.05-.04.08-.01.02-.01.04-.02.07-.12.34-.2.75-.2 1.25h2c0-.42.11-.77.28-1.07.02-.03.03-.06.05-.09.08-.14.18-.27.28-.39.01-.01.02-.03.03-.04.1-.12.21-.23.33-.34.96-.91 2.26-1.65 1.99-3.56-.24-1.74-1.61-3.21-3.35-3.47z'/%3E%3C/svg%3E");
         }
-        
+
         .bullet-list.capabilities li:nth-child(3)::before {
             mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5.5-2.5l7.51-3.49L17.5 6.5 9.99 9.99 6.5 17.5zm5.5-6.6c.61 0 1.1.49 1.1 1.1s-.49 1.1-1.1 1.1-1.1-.49-1.1-1.1.49-1.1 1.1-1.1z'/%3E%3C/svg%3E");
         }
-        
+
         .bullet-list.capabilities li:nth-child(4)::before {
             mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM17.99 9l-1.41-1.42-6.59 6.59-2.58-2.57-1.42 1.41 4 3.99z'/%3E%3C/svg%3E");
         }
 
-        /* Style for the contact section */
+        /* Links */
+        a {
+            color: var(--color-light);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            transition: border-color 0.2s ease;
+        }
+
+        a:hover {
+            border-color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Contact Section */
         .contact-section {
             text-align: center;
             margin-top: var(--spacing-vertical);
@@ -271,19 +202,68 @@
         }
 
         .contact-section p {
+            text-align: center !important;
             margin-bottom: 0;
+        }
+
+        /* Background Effects */
+        .light-accent {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                circle at top right,
+                rgba(74, 144, 226, 0.4) 0%,
+                rgba(41, 121, 255, 0.2) 30%,
+                rgba(0, 0, 0, 0) 70%
+            ),
+            radial-gradient(
+                circle at center,
+                rgba(74, 144, 226, 0.2) 0%,
+                rgba(41, 121, 255, 0.1) 50%,
+                rgba(41, 121, 255, 0.05) 65%,
+                rgba(0, 0, 0, 0) 85%
+            );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .memo::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                45deg,
+                rgba(41, 121, 255, 0.03),
+                rgba(74, 144, 226, 0.02)
+            );
+            pointer-events: none;
+            opacity: 0.5;
+            border-radius: 8px;
+        }
+
+        /* Add to Typography section */
+        .key-concept {
+            color: var(--color-primary);
+        }
+
+        .highlight {
+            color: var(--color-primary);
+            font-weight: 500;
         }
     </style>
 </head>
 <body>
     <div class="light-accent"></div>
-    <a href="index.html" class="home-button">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-        </svg>
-    </a>
     <article class="memo">
         <div class="content">
+            <a href="index.html" class="home-button">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                </svg>
+            </a>
             <header class="header">
                 <div class="date">12.19.2024</div>
                 <h1>On Reclaiming Human Agency</h1>
@@ -294,10 +274,10 @@
             <p>We envision tools that restore agency by enabling:</p>
 
             <ul class="bullet-list vision">
-                <li><span class="highlight">Individuals</span> to understand and improve their shared digital spaces</li>
-                <li><span class="highlight">Builders</span> to create and monetize net-new capabilities</li>
-                <li><span class="highlight">Markets</span> to incentivize positive-sum value creation</li>
-                <li><span class="highlight">Communities</span> to achieve shared goals while honoring individual autonomy</li>
+                <li>Individuals to understand and improve their shared digital spaces</li>
+                <li>Builders to create and monetize net-new capabilities</li>
+                <li>Markets to incentivize positive-sum value creation</li>
+                <li>Communities to achieve shared goals while honoring individual autonomy</li>
             </ul>
 
             <p>This isn't just about better software.</p>
