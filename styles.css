@@ -514,3 +514,39 @@ body.loading::before {
     border: none;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+.scroll-arrows {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+}
+
+.scroll-arrows svg {
+    width: 32px;
+    height: 32px;
+    animation: pulseDown 2s infinite;
+}
+
+.scroll-arrows svg:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.scroll-arrows svg:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes pulseDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    50% {
+        opacity: 0.7;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+}
