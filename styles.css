@@ -815,3 +815,33 @@ body.loading #about * {
     background: var(--color-dark);
     margin-top: 100vh;
 }
+
+/* Control iOS momentum scrolling */
+html, 
+body {
+    /* Disable momentum scrolling at the root level */
+    -webkit-overflow-scrolling: auto;
+    overflow-y: scroll;
+    touch-action: pan-y;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Key containers that should have controlled scrolling */
+.story-container,
+.story-scroll-container,
+#about,
+.static-content {
+    /* More controlled scroll behavior */
+    -webkit-overflow-scrolling: auto;
+    overflow-y: visible;
+    overscroll-behavior: none;
+    touch-action: pan-y;
+}
+
+/* Allow text selection only in content areas */
+.about-content,
+.scene-content {
+    user-select: text;
+    -webkit-user-select: text;
+}
