@@ -259,18 +259,37 @@ class SceneManager {
         this.init();
         this.particleSystem = new ParticleSystem();
 
-        // Add touch-specific options to all scene ScrollTriggers
+        // Detect iOS
+        this.isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        
         this.scrollTriggerDefaults = {
-            touchScrollAxis: "y",      // Lock to vertical scrolling
-            fastScrollEnd: true,       // Better momentum handling
-            preventOverlaps: true,     // Prevent multiple triggers firing simultaneously
+            touchScrollAxis: "y",
+            fastScrollEnd: true,
+            preventOverlaps: true,
             snap: {
-                snapTo: "labelsDirectional", // Snap to nearest scene
-                duration: { min: 0.2, max: 0.5 }, // Faster on mobile
-                delay: 0,              // No delay for touch
-                ease: "power1.out"     // Smooth easing
+                snapTo: "labelsDirectional",
+                duration: { min: 0.2, max: 0.5 },
+                delay: 0,
+                ease: "power1.out"
+            },
+            onUpdate: function(self) {
+                // Prevent updates during iOS bounce
+                if (window.scrollY < 0 || 
+                    window.scrollY > (document.documentElement.scrollHeight - window.innerHeight)) {
+                    return;
+                }
             }
         };
+
+        if (this.isIOS) {
+            // iOS-specific ScrollTrigger defaults
+            this.scrollTriggerDefaults.scrub = {
+                duration: 0.2,    // Faster scrub on iOS
+                smoothing: 0      // No smoothing on iOS
+            };
+            this.scrollTriggerDefaults.preventOverlaps = true;
+            this.scrollTriggerDefaults.fastScrollEnd = true;
+        }
     }
 
     init() {
@@ -296,17 +315,32 @@ class SceneManager {
     }
 
     createScrollTrigger(sceneId, callbacks) {
-        return {
+        const config = {
             trigger: `#${sceneId}`,
             start: "top center",
             end: "bottom center",
-            scrub: {
-                duration: 0.5,         // Shorter scrub duration for mobile
-                smoothing: 0.1         // Less smoothing for more responsive feel
+            scrub: this.isIOS ? {
+                duration: 0.2,
+                smoothing: 0
+            } : {
+                duration: 0.5,
+                smoothing: 0.1
             },
             ...this.scrollTriggerDefaults,
             ...callbacks
         };
+
+        if (this.isIOS) {
+            config.onUpdate = function(self) {
+                // Only update if not in bounce zone
+                if (window.scrollY >= 0 && 
+                    window.scrollY <= (document.documentElement.scrollHeight - window.innerHeight)) {
+                    callbacks?.onUpdate?.(self);
+                }
+            };
+        }
+
+        return config;
     }
 
     animateText(sceneId, progress) {
