@@ -821,3 +821,15 @@ body.loading #about * {
     background: var(--color-dark);
     margin-top: 100vh;
 }
+
+/* Disable hover effects while touching/scrolling */
+.is-touching * {
+    pointer-events: none !important;
+}
+
+/* Re-enable specific interactive elements */
+.is-touching button,
+.is-touching a,
+.is-touching .interactive {
+    pointer-events: auto !important;
+}

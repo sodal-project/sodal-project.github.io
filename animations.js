@@ -258,6 +258,19 @@ class SceneManager {
 
         this.init();
         this.particleSystem = new ParticleSystem();
+
+        // Add touch-specific options to all scene ScrollTriggers
+        this.scrollTriggerDefaults = {
+            touchScrollAxis: "y",      // Lock to vertical scrolling
+            fastScrollEnd: true,       // Better momentum handling
+            preventOverlaps: true,     // Prevent multiple triggers firing simultaneously
+            snap: {
+                snapTo: "labelsDirectional", // Snap to nearest scene
+                duration: { min: 0.2, max: 0.5 }, // Faster on mobile
+                delay: 0,              // No delay for touch
+                ease: "power1.out"     // Smooth easing
+            }
+        };
     }
 
     init() {
@@ -287,7 +300,11 @@ class SceneManager {
             trigger: `#${sceneId}`,
             start: "top center",
             end: "bottom center",
-            scrub: 0.5,
+            scrub: {
+                duration: 0.5,         // Shorter scrub duration for mobile
+                smoothing: 0.1         // Less smoothing for more responsive feel
+            },
+            ...this.scrollTriggerDefaults,
             ...callbacks
         };
     }
@@ -312,24 +329,55 @@ class SceneManager {
     }
 
     initScenes() {
+        // Add touch event listeners for better scroll control
+        let touchStartY = 0;
+        let scrolling = false;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+            scrolling = false;
+        }, { passive: true });
+
+        document.addEventListener('touchmove', (e) => {
+            if (!scrolling) {
+                scrolling = true;
+                // Disable any hover effects during scroll
+                document.body.classList.add('is-touching');
+            }
+        }, { passive: true });
+
+        document.addEventListener('touchend', () => {
+            scrolling = false;
+            // Re-enable hover effects
+            setTimeout(() => {
+                document.body.classList.remove('is-touching');
+            }, 100);
+        });
+
+        // Modify existing scene initialization
         this.scenes.forEach((scene, index) => {
             const timeline = gsap.timeline({
                 scrollTrigger: this.createScrollTrigger(scene.id, {
                     onUpdate: (self) => {
-                        this.animateText(scene.id, self.progress);
+                        // Add touch-specific progress handling
+                        const progress = self.progress;
+                        this.animateText(scene.id, progress);
 
-                        // Smooth dark overlay transition
+                        // Smoother transitions for touch devices
                         if (scene.darkOverlay !== null) {
-                            const progress = self.progress;
                             const prevOverlay = index > 0 ? this.scenes[index - 1].darkOverlay : 1;
                             const overlayDelta = prevOverlay - scene.darkOverlay;
-                            const currentOverlay = prevOverlay - (progress * overlayDelta);
+                            const currentOverlay = gsap.utils.interpolate(
+                                prevOverlay, 
+                                scene.darkOverlay, 
+                                progress
+                            );
                             gsap.set(".dark-overlay", { opacity: currentOverlay });
                         }
 
-                        // Start particle system in scene4
+                        // Particle system handling
                         if (scene.id === 'scene4') {
-                            if (self.progress > 0.3) {
+                            if (progress > 0.3) {
                                 this.particleSystem.start();
                             } else {
                                 this.particleSystem.stop();
@@ -528,10 +576,14 @@ const aboutTimeline = gsap.timeline({
         trigger: "#about",
         start: "top 90%",
         end: "top 30%",
-        scrub: 1,
+        scrub: {
+            duration: 0.5,
+            smoothing: 0.1
+        },
         toggleActions: "play none none reverse",
         touchScrollAxis: "y",
-        fastScrollEnd: true
+        fastScrollEnd: true,
+        preventOverlaps: true
     }
 });
 
