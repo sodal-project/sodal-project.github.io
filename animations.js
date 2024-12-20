@@ -556,38 +556,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Combined about section animations
-const aboutTimeline = gsap.timeline({
-    scrollTrigger: {
-        trigger: "#about",
-        start: "top 90%",
-        end: "top 30%",
-        scrub: {
-            duration: 0.5,
-            smoothing: 0.1
-        },
-        toggleActions: "play none none reverse",
-        touchScrollAxis: "y",
-        fastScrollEnd: true,
-        preventOverlaps: true
-    }
-});
-
-aboutTimeline
-    .to("body", {
-        backgroundColor: "rgb(20, 30, 60)",
-        duration: 1
-    })
-    .to("#about", {
-        opacity: 1,
-        duration: 0.5
-    }, "-=0.5")
-    .from(".about-content", {
-        y: 100,
-        opacity: 0,
-        duration: 1
-    }, "-=0.3");
-
 // Add menu button animation
 gsap.to(".menu-button", {
     scrollTrigger: {
