@@ -519,3 +519,43 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+gsap.to("#about", {
+    scrollTrigger: {
+        trigger: "#about",
+        start: "top center",
+        onEnter: () => {
+            // Add any entrance animations for the about section
+        }
+    },
+    opacity: 1,
+    duration: 1
+});
+
+// Simplified ScrollTrigger for the about section transition
+gsap.to(".fixed-elements", {
+    scrollTrigger: {
+        trigger: "#about",
+        start: "top 80%",
+        end: "top 20%",
+        scrub: true,
+        onEnter: () => {
+            document.querySelector('.fixed-elements').classList.add('fade-out');
+        },
+        onLeaveBack: () => {
+            document.querySelector('.fixed-elements').classList.remove('fade-out');
+        }
+    }
+});
+
+// Add entrance animation for about content
+gsap.from(".about-content", {
+    scrollTrigger: {
+        trigger: "#about",
+        start: "top center",
+        toggleActions: "play none none reverse"
+    },
+    y: 50,
+    opacity: 0,
+    duration: 1
+});

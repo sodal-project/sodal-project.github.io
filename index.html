@@ -63,7 +63,14 @@
             </svg>
         </div>
 
-        <!-- Move particle-field here, directly under fixed-elements -->
+        <!-- Move the CTA button here -->
+        <a href="#about">
+            <button class="cta-button" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: var(--z-content);">
+                Begin
+            </button>
+        </a>
+
+        <!-- Particle field -->
         <div class="particle-field">
             <canvas id="particleCanvas"></canvas>
         </div>
@@ -100,22 +107,38 @@
             <div class="scene-content"></div>
         </section>
 
-        <!-- Call to Action -->
+        <!-- Call to Action - remove the button from here -->
         <section id="cta" class="scene">
             <div class="scene-content">
-                <a href="./about.html">
-                    <button class="cta-button" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: var(--z-content);">
-                        Begin
-                    </button>
-                </a>
+            </div>
+        </section>
+
+        <!-- About section -->
+        <section id="about" class="scene">
+            <div class="scene-content about-content">
+                <header class="header">
+                    <h1>On Reclaiming Human Agency</h1>
+                </header>
+
+                <p>Digital spaces are essential to human collaboration, yet they have evolved to limit our <span class="key-concept">agency</span> — our power to make informed choices and act independently.</p>
+                
+                <p>To correct this, we're building tools to:</p>
+
+                <ul class="bullet-list vision">
+                    <li>Manage our online experience</li>
+                    <li>Control our digital identity</li>
+                    <li>Protect shared digital spaces</li>
+                    <li>Enable positive-sum value creation</li>
+                </ul>
+
+                <!-- ... rest of the about content ... -->
+                
+                <div class="contact-section">
+                    <p>Contact <a href="mailto:hi@sodal.io">hi@sodal.io</a> to learn more.</p>
+                </div>
             </div>
         </section>
     </main>
-
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="animations.js"></script>
 
     <!-- Add this near the end of your body -->
     <button class="menu-button" aria-label="Open menu">
@@ -139,7 +162,7 @@
                 </svg>
                 Home
             </a>
-            <a href="about.html" class="menu-link">
+            <a href="#about" class="menu-link">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zM6 20V4h7v5h5v11H6zm4-6h4v-2h-4v2zm0-4h4v-2h-4v2z"/>
                 </svg>
@@ -188,5 +211,10 @@
             <a href="https://github.com/sodal-project/community" class="footer-link" target="_blank">Community Guidelines</a>            
         </div>
     </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="animations.js"></script>
 </body>
 </html> 
