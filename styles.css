@@ -32,10 +32,12 @@
 /* Reset and base styles */
 body {
     margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
     font-family: 'Inter', sans-serif;
     background: var(--color-dark);
     color: var(--color-light);
-    overflow-x: hidden;
     line-height: 1.4;
     overscroll-behavior: none;
 }
@@ -45,8 +47,8 @@ body {
     position: fixed;
     inset: 0;
     z-index: var(--z-fixed);
-    transition: opacity 0.5s ease;
     pointer-events: none;
+    transition: opacity 0.5s ease;
 }
 
 .fixed-elements > * {
@@ -61,13 +63,14 @@ body {
 .scroll-container {
     position: relative;
     z-index: var(--z-base);
+    width: 100%;
 }
 
 /* Scene structure */
 .scene {
     position: relative;
+    min-height: 100vh;
     width: 100%;
-    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -277,30 +280,27 @@ body {
     position: fixed;
     top: 20px;
     right: 20px;
-    width: 40px;
-    height: 40px;
-    background: transparent;
-    border: 2px solid rgba(255,255,255,0.3);
-    border-radius: 50%;
-    cursor: pointer;
-    opacity: 0;
     z-index: var(--z-menu);
-    pointer-events: auto;
-    transition: border-color 0.3s ease;
+    background: transparent;
+    border: none;
     padding: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    cursor: pointer;
+    opacity: 0.3;  /* Start with lower opacity */
+    transition: opacity 0.3s ease;
 }
 
 .menu-button:hover {
-    border-color: var(--color-primary);
+    opacity: 0.8;
+}
+
+.menu-button.active {
+    opacity: 1;
 }
 
 .menu-button svg {
     width: 24px;
     height: 24px;
-    fill: var(--color-light);
+    color: var(--color-light);
 }
 
 /* Menu panel */
@@ -578,6 +578,8 @@ body.loading::before {
     position: relative;
     z-index: var(--z-about);
     min-height: 100vh;
+    width: 100%;
+    overflow-y: auto;
     background: var(--color-dark);
     visibility: visible;
 }
@@ -679,6 +681,23 @@ body.loading::before {
 .bullet-list.vision li:nth-child(4)::before {
     /* "Enable positive-sum value" - growth/trending up icon */
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6h-6z'/%3E%3C/svg%3E");
+}
+
+
+.bullet-list.capabilities li:nth-child(1)::before {
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z'/%3E%3C/svg%3E");
+}
+
+.bullet-list.capabilities li:nth-child(2)::before {
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-4h2v2h-2zm1.61-9.96c-2.06-.3-3.88.97-4.43 2.79-.18.58.26 1.17.87 1.17h.2c.41 0 .74-.29.88-.67.32-.89 1.27-1.5 2.3-1.28.95.2 1.65 1.13 1.57 2.1-.1 1.34-1.62 1.63-2.45 2.88 0 .01-.01.01-.01.02-.01.02-.02.03-.03.05-.09.15-.18.32-.25.5-.01.03-.03.05-.04.08-.01.02-.01.04-.02.07-.12.34-.2.75-.2 1.25h2c0-.42.11-.77.28-1.07.02-.03.03-.06.05-.09.08-.14.18-.27.28-.39.01-.01.02-.03.03-.04.1-.12.21-.23.33-.34.96-.91 2.26-1.65 1.99-3.56-.24-1.74-1.61-3.21-3.35-3.47z'/%3E%3C/svg%3E");
+}
+
+.bullet-list.capabilities li:nth-child(3)::before {
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5.5-2.5l7.51-3.49L17.5 6.5 9.99 9.99 6.5 17.5zm5.5-6.6c.61 0 1.1.49 1.1 1.1s-.49 1.1-1.1 1.1-1.1-.49-1.1-1.1.49-1.1 1.1-1.1z'/%3E%3C/svg%3E");
+}
+
+.bullet-list.capabilities li:nth-child(4)::before {
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM17.99 9l-1.41-1.42-6.59 6.59-2.58-2.57-1.42 1.41 4 3.99z'/%3E%3C/svg%3E");
 }
 
 /* About section header */
