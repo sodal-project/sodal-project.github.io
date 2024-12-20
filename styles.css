@@ -600,7 +600,7 @@ body.loading::before {
     z-index: var(--z-about);
     min-height: 100vh;
     width: 100%;
-    overflow-y: auto;
+    overflow: hidden;
     background: var(--color-dark);
     visibility: visible;
 }
