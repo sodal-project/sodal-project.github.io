@@ -475,15 +475,15 @@ class SceneManager {
                 if (scene.id === 'scene4') {
                     timeline
                         .to('.light-ring.inner', {
-                            scale: 6,  // Light ring should expand
+                            scale: 6,
                             duration: 1,
                             ease: "power2.out"
                         })
                         .to('.protagonist', {
-                            scale: 1,  // Protagonist maintains its scale
+                            scale: 1,
                             duration: 1,
                             ease: "power2.out"
-                        }, "<")  // The "<" makes this animation start at the same time
+                        }, "<")
                         .from('.cta-button', {
                             opacity: 0,
                             scale: 0,
@@ -493,7 +493,9 @@ class SceneManager {
                         .to('.menu-button', {
                             opacity: 1,
                             duration: 0.5,
-                            ease: "power2.out"
+                            ease: "power2.out",
+                            onComplete: () => document.querySelector('.menu-button').classList.add('active'),
+                            onReverseComplete: () => document.querySelector('.menu-button').classList.remove('active')
                         }, "-=0.5");
                 }
             }
