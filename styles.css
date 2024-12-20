@@ -845,3 +845,28 @@ body {
     user-select: text;
     -webkit-user-select: text;
 }
+
+/* Base smooth scrolling */
+html {
+    scroll-behavior: auto; /* Remove global smooth scrolling */
+}
+
+/* Apply smooth scrolling only to the story container */
+.story-container {
+    scroll-behavior: smooth;
+}
+
+/* Remove smooth scrolling near the transition */
+.static-content {
+    scroll-behavior: auto;
+}
+
+#about {
+    scroll-behavior: auto;
+}
+
+/* Ensure hash-based navigation doesn't trigger smooth scroll */
+.cta-button,
+.menu-link[href="#about"] {
+    scroll-behavior: auto;
+}
