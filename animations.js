@@ -315,31 +315,6 @@ class SceneManager {
     }
 
     initScenes() {
-        // Add touch event listeners for better scroll control
-        let touchStartY = 0;
-        let scrolling = false;
-
-        document.addEventListener('touchstart', (e) => {
-            touchStartY = e.touches[0].clientY;
-            scrolling = false;
-        }, { passive: true });
-
-        document.addEventListener('touchmove', (e) => {
-            if (!scrolling) {
-                scrolling = true;
-                // Disable any hover effects during scroll
-                document.body.classList.add('is-touching');
-            }
-        }, { passive: true });
-
-        document.addEventListener('touchend', () => {
-            scrolling = false;
-            // Re-enable hover effects
-            setTimeout(() => {
-                document.body.classList.remove('is-touching');
-            }, 100);
-        });
-
         // Modify existing scene initialization
         this.scenes.forEach((scene, index) => {
             const timeline = gsap.timeline({
@@ -555,6 +530,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// Just handle history state
+let inAboutSection = false;
+
+document.addEventListener('scroll', () => {
+    const aboutSection = document.getElementById('about');
+    const aboutTop = aboutSection.getBoundingClientRect().top;
+    
+    if (aboutTop > window.innerHeight) {
+        // We've scrolled up past the about section
+        if (inAboutSection) {
+            history.pushState('', document.title, window.location.pathname);
+            inAboutSection = false;
+        }
+    } else {
+        inAboutSection = true;
+    }
+}, { passive: true });
 
 // Add menu button animation
 gsap.to(".menu-button", {
