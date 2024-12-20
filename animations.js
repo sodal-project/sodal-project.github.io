@@ -535,10 +535,10 @@ gsap.to("#about", {
 // Update the ScrollTrigger for a smoother transition
 gsap.to(".fixed-elements", {
     scrollTrigger: {
-        trigger: "#about",
-        start: "top 80%", // Start earlier
-        end: "top 20%",   // End later
-        scrub: 1,         // Smooth scrubbing effect
+        trigger: ".static-content",
+        start: "top 80%",
+        end: "top 20%",
+        scrub: 1,
         onEnter: () => {
             document.querySelector('.fixed-elements').classList.add('fade-out');
         },
@@ -551,24 +551,25 @@ gsap.to(".fixed-elements", {
 // Add a parallel animation for the dark overlay
 gsap.to(".dark-overlay", {
     scrollTrigger: {
-        trigger: "#about",
-        start: "top 90%", // Start even earlier
-        end: "top 50%",   // End sooner
+        trigger: ".static-content",
+        start: "top 90%",
+        end: "top 50%",
         scrub: 1,
-        opacity: 0,       // Fade out the overlay first
+        opacity: 0,
     }
 });
 
 // Fade in the about content
 gsap.from(".about-content", {
     scrollTrigger: {
-        trigger: "#about",
-        start: "top 60%", // Start fading in while overlay is still fading out
+        trigger: ".static-content",
+        start: "top 80%",
         toggleActions: "play none none reverse"
     },
-    y: 50,
+    y: 100,
     opacity: 0,
-    duration: 1
+    duration: 1.5,
+    ease: "power2.out"
 });
 
 // Add menu button animation

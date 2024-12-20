@@ -12,107 +12,106 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body class="loading">
-    <!-- Fixed elements container -->
-    <div class="fixed-elements">
-        <!-- Text overlay -->
-        <div class="text-container">
-            <div id="text1" class="scene-text">it's hard to make good</br>decisions in the dark</div>
-            <div id="text2" class="scene-text">let's illuminate our world</div>
-            <div id="text3" class="scene-text">discover what's possible</div>
-            <div id="text4" class="scene-text">and reclaim our agency</div>
-        </div>
-
-        <!-- Protagonist -->
-        <div class="protagonist-container">
-            <div class="protagonist">
-                <a href="#about">
-                    <button class="cta-button" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: var(--z-content);">
-                        Begin
-                    </button>
-                </a>
+    <!-- Story Container -->
+    <div class="story-container">
+        <!-- Fixed elements container -->
+        <div class="fixed-elements">
+            <!-- Text overlay -->
+            <div class="text-container">
+                <div id="text1" class="scene-text">it's hard to make good</br>decisions in the dark</div>
+                <div id="text2" class="scene-text">let's illuminate our world</div>
+                <div id="text3" class="scene-text">discover what's possible</div>
+                <div id="text4" class="scene-text">and reclaim our agency</div>
             </div>
-        </div>
 
-        <!-- Light rings -->
-        <div class="light-rings">
-            <div class="light-ring inner"></div>
-            <div class="light-ring outer"></div>
-        </div>
-
-        <!-- Dark overlay -->
-        <div class="dark-overlay"></div>
-
-        <!-- Add inside fixed-elements, after protagonist -->
-        <div class="discovery-items">
-            <!-- First ring -->
-            <div class="discovery-item ring1" id="item1"></div>
-            <div class="discovery-item ring1" id="item2"></div>
-            <div class="discovery-item ring1" id="item3"></div>
-            <div class="discovery-item ring1" id="item4"></div>
-            <div class="discovery-item ring1" id="item5"></div>
-            
-            <!-- Second ring -->
-            <div class="discovery-item ring2" id="item6"></div>
-            <div class="discovery-item ring2" id="item7"></div>
-            <div class="discovery-item ring2" id="item8"></div>
-            <div class="discovery-item ring2" id="item9"></div>
-            <div class="discovery-item ring2" id="item10"></div>
-            <div class="discovery-item ring2" id="item11"></div>
-            <div class="discovery-item ring2" id="item12"></div>
-            <div class="discovery-item ring2" id="item13"></div>
-            <div class="discovery-item ring2" id="item14"></div>
-            <div class="discovery-item ring2" id="item15"></div>
-            
-            <!-- Connection lines container -->
-            <svg class="connection-lines" width="100%" height="100%" viewBox="-300 -300 600 600">
-                <!-- Lines will be added dynamically -->
-            </svg>
-        </div>
-
-        <!-- Particle field -->
-        <div class="particle-field">
-            <canvas id="particleCanvas"></canvas>
-        </div>
-    </div>
-
-    <!-- Scrollable content -->
-    <main class="scroll-container">
-        <section id="scene1" class="scene">
-            <div class="scene-content"></div>
-            <div class="scroll-indicator">
-                <div class="scroll-arrows">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
-                    </svg>
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
-                    </svg>
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
-                    </svg>
+            <!-- Protagonist -->
+            <div class="protagonist-container">
+                <div class="protagonist">
+                    <a href="#about">
+                        <button class="cta-button" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: var(--z-content);">
+                            Begin
+                        </button>
+                    </a>
                 </div>
             </div>
-        </section>
 
-        <section id="scene2" class="scene">
-            <div class="scene-content"></div>
-        </section>
-
-        <section id="scene3" class="scene">
-            <div class="scene-content"></div>
-        </section>
-
-        <section id="scene4" class="scene">
-            <div class="scene-content"></div>
-        </section>
-
-        <!-- Call to Action - remove the button from here -->
-        <section id="cta" class="scene">
-            <div class="scene-content">
+            <!-- Light rings -->
+            <div class="light-rings">
+                <div class="light-ring inner"></div>
+                <div class="light-ring outer"></div>
             </div>
-        </section>
 
-        <!-- About section -->
+            <!-- Dark overlay -->
+            <div class="dark-overlay"></div>
+
+            <!-- Add inside fixed-elements, after protagonist -->
+            <div class="discovery-items">
+                <!-- First ring -->
+                <div class="discovery-item ring1" id="item1"></div>
+                <div class="discovery-item ring1" id="item2"></div>
+                <div class="discovery-item ring1" id="item3"></div>
+                <div class="discovery-item ring1" id="item4"></div>
+                <div class="discovery-item ring1" id="item5"></div>
+                
+                <!-- Second ring -->
+                <div class="discovery-item ring2" id="item6"></div>
+                <div class="discovery-item ring2" id="item7"></div>
+                <div class="discovery-item ring2" id="item8"></div>
+                <div class="discovery-item ring2" id="item9"></div>
+                <div class="discovery-item ring2" id="item10"></div>
+                <div class="discovery-item ring2" id="item11"></div>
+                <div class="discovery-item ring2" id="item12"></div>
+                <div class="discovery-item ring2" id="item13"></div>
+                <div class="discovery-item ring2" id="item14"></div>
+                <div class="discovery-item ring2" id="item15"></div>
+                
+                <!-- Connection lines container -->
+                <svg class="connection-lines" width="100%" height="100%" viewBox="-300 -300 600 600">
+                    <!-- Lines will be added dynamically -->
+                </svg>
+            </div>
+
+            <!-- Particle field -->
+            <div class="particle-field">
+                <canvas id="particleCanvas"></canvas>
+            </div>
+        </div>
+
+        <!-- Scrollable story content -->
+        <main class="story-scroll-container">
+            <section id="scene1" class="scene">
+                <div class="scene-content"></div>
+                <div class="scroll-indicator">
+                    <div class="scroll-arrows">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+                        </svg>
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+                        </svg>
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+                        </svg>
+                    </div>
+                </div>
+            </section>
+
+            <section id="scene2" class="scene">
+                <div class="scene-content"></div>
+            </section>
+
+            <section id="scene3" class="scene">
+                <div class="scene-content"></div>
+            </section>
+
+            <section id="scene4" class="scene">
+                <div class="scene-content"></div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Static Content Container -->
+    <div class="static-content">
         <section id="about" class="scene">
             <div class="scene-content about-content">
                 <header class="header">
@@ -148,7 +147,9 @@
                 </div>
             </div>
         </section>
-    </main>
+        
+        <!-- Future static sections can be added here -->
+    </div>
 
     <!-- Add this near the end of your body -->
     <button class="menu-button" aria-label="Open menu">
