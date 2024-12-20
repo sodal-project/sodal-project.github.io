@@ -520,34 +520,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-gsap.to("#about", {
+// Combined about section animations
+const aboutTimeline = gsap.timeline({
     scrollTrigger: {
         trigger: "#about",
-        start: "top center",
-        onEnter: () => {
-            // Add any entrance animations for the about section
-        },
-        touchScrollAxis: "y",
-        fastScrollEnd: true
-    },
-    opacity: 1,
-    duration: 1
-});
-
-// Fade in the about content
-gsap.from(".about-content", {
-    scrollTrigger: {
-        trigger: ".static-content",
-        start: "top 80%",
+        start: "top 90%",
+        end: "top 30%",
+        scrub: 1,
         toggleActions: "play none none reverse",
         touchScrollAxis: "y",
         fastScrollEnd: true
-    },
-    y: 100,
-    opacity: 0,
-    duration: 1.5,
-    ease: "power2.out"
+    }
 });
+
+aboutTimeline
+    .to("body", {
+        backgroundColor: "rgb(20, 30, 60)",
+        duration: 1
+    })
+    .to("#about", {
+        opacity: 1,
+        duration: 0.5
+    }, "-=0.5")
+    .from(".about-content", {
+        y: 100,
+        opacity: 0,
+        duration: 1
+    }, "-=0.3");
 
 // Add menu button animation
 gsap.to(".menu-button", {
@@ -563,17 +562,4 @@ gsap.to(".menu-button", {
             document.querySelector('.menu-button').classList.remove('active');
         }
     }
-});
-
-// Animate body background color when approaching about section
-gsap.to("body", {
-    scrollTrigger: {
-        trigger: "#about",
-        start: "top 90%",
-        end: "top 50%",
-        scrub: true,
-        touchScrollAxis: "y",
-        fastScrollEnd: true
-    },
-    backgroundColor: "rgb(20, 30, 60)", // Brighter dark blue
 });
