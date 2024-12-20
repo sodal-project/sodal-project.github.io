@@ -797,29 +797,6 @@ body.loading #about * {
         overflow-x: hidden;
         -webkit-overflow-scrolling: touch;
     }
-
-    #about {
-        position: relative;
-        min-height: 100vh;
-        height: auto;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-        overscroll-behavior: none;
-        transform: translate3d(0, 0, 0); /* Force GPU acceleration */
-    }
-
-    /* Ensure smooth transitions */
-    .about-content {
-        transform: translate3d(0, 0, 0);
-        backface-visibility: hidden;
-        -webkit-backface-visibility: hidden;
-    }
-
-    /* Disable animations that might cause stutter */
-    .scene-content {
-        will-change: transform;
-        transform: translate3d(0, 0, 0);
-    }
 }
 
 /* Story Container */
