@@ -526,7 +526,9 @@ gsap.to("#about", {
         start: "top center",
         onEnter: () => {
             // Add any entrance animations for the about section
-        }
+        },
+        touchScrollAxis: "y",
+        fastScrollEnd: true
     },
     opacity: 1,
     duration: 1
@@ -537,7 +539,9 @@ gsap.from(".about-content", {
     scrollTrigger: {
         trigger: ".static-content",
         start: "top 80%",
-        toggleActions: "play none none reverse"
+        toggleActions: "play none none reverse",
+        touchScrollAxis: "y",
+        fastScrollEnd: true
     },
     y: 100,
     opacity: 0,
@@ -567,7 +571,9 @@ gsap.to("body", {
         trigger: "#about",
         start: "top 90%",
         end: "top 50%",
-        scrub: 1
+        scrub: true,
+        touchScrollAxis: "y",
+        fastScrollEnd: true
     },
     backgroundColor: "rgb(20, 30, 60)", // Brighter dark blue
 });
