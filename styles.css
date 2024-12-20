@@ -179,6 +179,22 @@ body {
     transition: opacity 0.5s ease;
 }
 
+/* Add transition overlay */
+.transition-overlay {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(
+        circle at center,
+        rgba(74, 144, 226, 0.3) 0%,
+        rgba(41, 121, 255, 0.2) 50%,
+        rgba(41, 121, 255, 0.1) 100%
+    );
+    z-index: var(--z-dark-overlay);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
 /* CTA Button */
 .cta-button {
     background: transparent;

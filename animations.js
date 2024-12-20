@@ -586,3 +586,14 @@ gsap.to(".menu-button", {
         }
     }
 });
+
+// Animate body background color when approaching about section
+gsap.to("body", {
+    scrollTrigger: {
+        trigger: "#about",
+        start: "top 90%",
+        end: "top 50%",
+        scrub: 1
+    },
+    backgroundColor: "rgb(20, 30, 60)", // Brighter dark blue
+});
