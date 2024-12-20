@@ -51,6 +51,7 @@ body {
     transition: opacity 0.5s ease;
     bottom: auto;
     height: 100vh;
+    overscroll-behavior: none;
 }
 
 .fixed-elements > * {
@@ -67,6 +68,7 @@ body {
     position: relative;
     z-index: var(--z-base);
     width: 100%;
+    overscroll-behavior: none;
 }
 
 /* Scene structure */
@@ -606,6 +608,7 @@ body.loading::before {
     overflow: hidden;
     padding-top: 30px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+    overscroll-behavior: none;
 }
 
 #about::before {
@@ -806,12 +809,14 @@ body.loading #about * {
     position: relative;
     min-height: 100vh;
     width: 100%;
+    overscroll-behavior: none;
 }
 
 .story-scroll-container {
     position: relative;
     z-index: var(--z-base);
     width: 100%;
+    overscroll-behavior: none;
 }
 
 /* Static Content */
@@ -820,16 +825,5 @@ body.loading #about * {
     z-index: var(--z-content);
     background: var(--color-dark);
     margin-top: 100vh;
-}
-
-/* Disable hover effects while touching/scrolling */
-.is-touching * {
-    pointer-events: none !important;
-}
-
-/* Re-enable specific interactive elements */
-.is-touching button,
-.is-touching a,
-.is-touching .interactive {
-    pointer-events: auto !important;
+    overscroll-behavior: none;
 }
