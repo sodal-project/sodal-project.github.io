@@ -601,7 +601,7 @@ body.loading::before {
     min-height: 100vh;
     width: 100%;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 30px 0;
+    padding: 40px 0;
 }
 
 #about::before {
@@ -637,7 +637,7 @@ body.loading::before {
     max-width: 620px;
     width: 90%;
     margin: 0 auto;
-    padding: 40px 20px;
+    padding: 20px;
 }
 
 /* About section typography */
@@ -729,14 +729,12 @@ body.loading::before {
 /* Contact section */
 .contact-section {
     text-align: center;
-    margin-top: var(--spacing-vertical, 2rem);
-    padding-top: var(--spacing-vertical, 2rem);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .contact-section p {
     text-align: center !important;
-    margin-bottom: 0;
 }
 
 /* Links in about section */
@@ -751,12 +749,6 @@ body.loading::before {
     border-color: rgba(255, 255, 255, 0.8);
 }
 
-/* Typography adjustments */
-.about-content p, 
-.about-content ul {
-    text-align: left;
-}
-
 .about-content h1 {
     font-size: 1.6em;
     margin: 0;
@@ -766,7 +758,6 @@ body.loading::before {
 }
 
 .about-content p {
-    margin-bottom: var(--spacing-vertical, 2rem);
     text-align: left;
 }
 
@@ -777,11 +768,6 @@ body.loading::before {
 /* Loading state for about section */
 body.loading * {
     visibility: hidden;
-}
-
-body.loading #about,
-body.loading #about * {
-    visibility: visible !important;
 }
 
 /* Story Container */
