@@ -319,6 +319,7 @@ class SceneManager {
         this.scenes.forEach((scene, index) => {
             const timeline = gsap.timeline({
                 scrollTrigger: this.createScrollTrigger(scene.id, {
+                    end: scene.id === 'scene4' ? "bottom bottom" : "bottom center",
                     onUpdate: (self) => {
                         // Add touch-specific progress handling
                         const progress = self.progress;
@@ -512,43 +513,6 @@ class SceneManager {
     }
 }
 
-// Initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-    new SceneManager();
-    
-    const menuButton = document.querySelector('.menu-button');
-    const menuPanel = document.querySelector('.menu-panel');
-    const menuClose = document.querySelector('.menu-close');
-    
-    if (menuButton && menuPanel && menuClose) {
-        menuButton.addEventListener('click', () => {
-            menuPanel.classList.toggle('active');
-        });
-        
-        menuClose.addEventListener('click', () => {
-            menuPanel.classList.remove('active');
-        });
-    }
-});
-
-// Just handle history state
-let inAboutSection = false;
-
-document.addEventListener('scroll', () => {
-    const aboutSection = document.getElementById('about');
-    const aboutTop = aboutSection.getBoundingClientRect().top;
-    
-    if (aboutTop > window.innerHeight) {
-        // We've scrolled up past the about section
-        if (inAboutSection) {
-            history.pushState('', document.title, window.location.pathname);
-            inAboutSection = false;
-        }
-    } else {
-        inAboutSection = true;
-    }
-}, { passive: true });
-
 // Add menu button animation
 gsap.to(".menu-button", {
     scrollTrigger: {
@@ -563,4 +527,8 @@ gsap.to(".menu-button", {
             document.querySelector('.menu-button').classList.remove('active');
         }
     }
-});
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    new SceneManager();
+  });

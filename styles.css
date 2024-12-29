@@ -784,17 +784,6 @@ body.loading #about * {
     visibility: visible !important;
 }
 
-/* Mobile-specific fixes */
-@media (max-width: 768px), (pointer: coarse) {
-    /* Prevent elastic scrolling on iOS */
-    .scroll-container {
-        position: relative;
-        width: 100%;
-        overflow-x: hidden;
-        -webkit-overflow-scrolling: touch;
-    }
-}
-
 /* Story Container */
 .story-container {
     position: relative;
@@ -813,60 +802,4 @@ body.loading #about * {
     position: relative;
     z-index: var(--z-content);
     background: var(--color-dark);
-    margin-top: 100vh;
-}
-
-/* Control iOS momentum scrolling */
-html, 
-body {
-    /* Disable momentum scrolling at the root level */
-    -webkit-overflow-scrolling: auto;
-    overflow-y: scroll;
-    touch-action: pan-y;
-    -webkit-touch-callout: none;
-    -webkit-tap-highlight-color: transparent;
-}
-
-/* Key containers that should have controlled scrolling */
-.story-container,
-.story-scroll-container,
-#about,
-.static-content {
-    /* More controlled scroll behavior */
-    -webkit-overflow-scrolling: auto;
-    overflow-y: visible;
-    overscroll-behavior: none;
-    touch-action: pan-y;
-}
-
-/* Allow text selection only in content areas */
-.about-content,
-.scene-content {
-    user-select: text;
-    -webkit-user-select: text;
-}
-
-/* Base smooth scrolling */
-html {
-    scroll-behavior: auto; /* Remove global smooth scrolling */
-}
-
-/* Apply smooth scrolling only to the story container */
-.story-container {
-    scroll-behavior: smooth;
-}
-
-/* Remove smooth scrolling near the transition */
-.static-content {
-    scroll-behavior: auto;
-}
-
-#about {
-    scroll-behavior: auto;
-}
-
-/* Ensure hash-based navigation doesn't trigger smooth scroll */
-.cta-button,
-.menu-link[href="#about"] {
-    scroll-behavior: auto;
 }
