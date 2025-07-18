@@ -77,6 +77,8 @@ header {
     background: var(--bg);
     border-bottom: 1px solid var(--border);
     backdrop-filter: blur(10px);
+    padding-top: 1rem;
+    height: 4.25rem;
 }
 
 nav {
